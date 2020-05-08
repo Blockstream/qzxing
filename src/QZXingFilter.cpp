@@ -377,6 +377,10 @@ void QZXingFilterRunnable::processVideoFrameProbed(SimpleVideoFrame & videoFrame
 
 QString QZXingFilterRunnable::decode(const QImage &image)
 {
-    return (filter != ZXING_NULLPTR) ?
-      filter->decoder.decodeImage(image, image.width(), image.height()) : QString();
+    if (filter == ZXING_NULLPTR) return {};
+
+    QString tag = filter->decoder.decodeImage(image, image.width(), image.height());
+    if (!tag.isEmpty()) return tag;
+
+    return filter->decoder.decodeImage(image.mirrored(true, false), image.width(), image.height());
 }
