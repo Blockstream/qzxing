@@ -120,7 +120,7 @@ class QZXingFilterRunnable : public QObject, public QVideoFilterRunnable
         QString decode(const QImage &image);
 
     private:
-        QZXingFilter * filter;
+        QZXingFilter * const filter;
 };
 
 #endif // QZXingFilter_H

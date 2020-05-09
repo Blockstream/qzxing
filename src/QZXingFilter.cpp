@@ -90,7 +90,8 @@ QZXingFilterRunnable::QZXingFilterRunnable(QZXingFilter * filter)
 }
 QZXingFilterRunnable::~QZXingFilterRunnable()
 {
-    filter = ZXING_NULLPTR;
+    filter->processThread.cancel();
+    filter->processThread.waitForFinished();
 }
 
 QVideoFrame QZXingFilterRunnable::run(QVideoFrame * input, const QVideoSurfaceFormat &surfaceFormat, RunFlags flags)
